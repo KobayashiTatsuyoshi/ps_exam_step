@@ -10,7 +10,7 @@ namespace InterfaceVersion
 
         private void Start()
         {
-            inputController.playerAttack = Shot;
+            inputController.onPlayerAttack = Shot;
         }
 
         private void Shot(Vector2 clickPos)
