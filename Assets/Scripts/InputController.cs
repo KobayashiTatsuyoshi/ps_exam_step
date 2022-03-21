@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class InputController : MonoBehaviour
 {
-    public System.Action<Vector2> onPlayerAttack;
+    public event System.Action<Vector2> onPlayerAttack;
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
             var worldMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            onPlayerAttack(worldMousePos);
+            if (onPlayerAttack != null)
+            {
+                onPlayerAttack(worldMousePos);
+            }
         }
     }
 }

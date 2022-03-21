@@ -10,7 +10,14 @@ namespace InterfaceVersion
 
         private void Start()
         {
-            inputController.onPlayerAttack = Shot;
+            inputController.onPlayerAttack += Shot;
+            inputController.onPlayerAttack += Vector2Log;
+        }
+
+        private void OnDestroy()
+        {
+            inputController.onPlayerAttack -= Shot;
+            inputController.onPlayerAttack -= Vector2Log;
         }
 
         private void Shot(Vector2 clickPos)
@@ -19,6 +26,11 @@ namespace InterfaceVersion
             Vector2 distance = clickPos - playerPos;
             var bullet = Instantiate(bulletPrefab);
             bullet.Setup(BulletType.Player, playerPos, distance.normalized);
+        }
+
+        private void Vector2Log(Vector2 pos)
+        {
+            Debug.Log(pos);
         }
 
         private void Update()
