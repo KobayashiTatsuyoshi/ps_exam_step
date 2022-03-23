@@ -3,15 +3,18 @@ using UnityEngine;
 
 namespace InterfaceVersion
 {
-    public class Enemy : MonoBehaviour, IBulletHitable
+    public abstract class EnemyBase : MonoBehaviour, IBulletHitable
     {
         [SerializeField] Bullet bulletPrefab;
         [SerializeField] float shotSpan;
 
-        private void Start()
+        public void Setup()
         {
             StartCoroutine(SpanShot());
+            StartCoroutine(Move());
         }
+
+        protected abstract IEnumerator Move();
 
         private IEnumerator SpanShot()
         {
@@ -37,5 +40,4 @@ namespace InterfaceVersion
             Destroy(gameObject);
         }
     }
-
 }
