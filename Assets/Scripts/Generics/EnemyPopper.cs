@@ -7,12 +7,13 @@ namespace GenericsSample
     {
         [SerializeField] MoveCircleEnemy circleEnemyPrefab;
         [SerializeField] MoveHorizontalEnemy horizontalEnemyPrefab;
+        [SerializeField] BulletPool bulletPool;
         [SerializeField] Rect bounds;
 
         private void Start()
         {
-            StartCoroutine(Pop<MoveHorizontalEnemy>(horizontalEnemyPrefab, 1f));
-            StartCoroutine(Pop<MoveCircleEnemy>(circleEnemyPrefab, 1.5f));
+            StartCoroutine(Pop(horizontalEnemyPrefab, 5f));
+            StartCoroutine(Pop(circleEnemyPrefab, 10f));
         }
 
         IEnumerator Pop<T>(T prefab, float span) where T : EnemyBase
@@ -27,6 +28,7 @@ namespace GenericsSample
                 enemy.transform.position = pos;
                 enemy.transform.parent = transform;
                 enemy.Setup();
+                enemy.pool = bulletPool;
             }
         }
     }

@@ -3,8 +3,8 @@ using UnityEngine;
 
 public abstract class EnemyBase : MonoBehaviour, IBulletHitable
 {
-    [SerializeField] Bullet bulletPrefab;
     [SerializeField] float shotSpan;
+    public BulletPool pool;
 
     public void Setup()
     {
@@ -23,7 +23,7 @@ public abstract class EnemyBase : MonoBehaviour, IBulletHitable
             float euler = Random.Range(-180, 180);
             Vector2 dir = Quaternion.Euler(0, 0, euler) * Vector2.up;
 
-            var bullet = Instantiate(bulletPrefab);
+            var bullet = pool.Create();
             bullet.Setup(BulletType.Enemy, transform.position, dir);
         }
     }
@@ -36,5 +36,6 @@ public abstract class EnemyBase : MonoBehaviour, IBulletHitable
     {
         if (bullet.Type == BulletType.Enemy) return;
         Destroy(gameObject);
+        bullet.Destroy();
     }
 }

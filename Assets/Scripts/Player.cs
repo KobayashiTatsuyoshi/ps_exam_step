@@ -3,7 +3,7 @@
 public class Player : MonoBehaviour, IBulletHitable
 {
     [SerializeField] private int hp;
-    [SerializeField] Bullet bulletPrefab;
+    [SerializeField] BulletPool pool;
     [SerializeField] InputController inputController;
 
     private void Start()
@@ -22,7 +22,7 @@ public class Player : MonoBehaviour, IBulletHitable
     {
         Vector2 playerPos = transform.position;
         Vector2 distance = clickPos - playerPos;
-        var bullet = Instantiate(bulletPrefab);
+        var bullet = pool.Create();
         bullet.Setup(BulletType.Player, playerPos, distance.normalized);
     }
 
@@ -51,7 +51,7 @@ public class Player : MonoBehaviour, IBulletHitable
         }
         else
         {
-            Destroy(bullet.gameObject);
+            bullet.Destroy();
         }
     }
 }

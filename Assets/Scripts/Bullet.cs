@@ -1,14 +1,28 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviour, IPooledObject
 {
+    [SerializeField] float speed;
     public BulletType Type { get; private set; }
+
+    public event Action Disable;
+
+    public void OnActive()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void OnDisactive()
+    {
+        gameObject.SetActive(false);
+    }
 
     public void Setup(BulletType type, Vector3 position, Vector3 dir)
     {
         transform.position = position;
         var rb = GetComponent<Rigidbody2D>();
-        rb.velocity = dir;
+        rb.velocity = dir * speed;
 
         Type = type;
     }
@@ -22,6 +36,11 @@ public class Bullet : MonoBehaviour
         {
             hitable.OnHit(this);
         }
+    }
+
+    public void Destroy()
+    {
+        Disable();
     }
 }
 
