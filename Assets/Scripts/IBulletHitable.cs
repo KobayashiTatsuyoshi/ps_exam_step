@@ -1,8 +1,4 @@
-﻿namespace InterfaceVersion
+﻿public interface IBulletHitable
 {
-    public interface IBulletHitable
-    {
-        void OnHit(Bullet bullet);
-    }
-
+    void OnHit(Bullet bullet);
 }

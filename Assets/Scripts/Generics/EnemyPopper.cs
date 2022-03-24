@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace InterfaceVersion
+namespace GenericsSample
 {
     public class EnemyPopper : MonoBehaviour
     {
