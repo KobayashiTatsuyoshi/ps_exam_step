@@ -51,10 +51,3 @@ public abstract class ObjectPool<T> : MonoBehaviour where T : MonoBehaviour, IPo
         return instance;
     }
 }
-
-public interface IPooledObject
-{
-    event System.Action Disable;
-    void OnActive();
-    void OnDisactive();
-}
